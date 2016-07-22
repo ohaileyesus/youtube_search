@@ -10,13 +10,25 @@ app = Flask(__name__)
 
 @app.route("/")
 def test():
-	first_num = request.values.get('From', None)
-	msg_body = request.values.get('Body', None)
-	
-	client.messages.create(
-		to = request.values.get('From', None),
-		from_= '[ENTER PHONE NUMBER]',
-		body = songLookup(msg_body))
+	first_num = request.values.get('From')
+	msg_body = request.values.get('Body')
+
+	#checks if a recepient number is specified
+	if '+' in msg_body:
+		song = msg_body.split('+')[0]
+		recepient = msg_body.split('+')[1]
+
+		client.messages.create(
+		to = '+' + recepient,
+		from_= '+16788417569',
+		body = 'Your friend ' + first_num + ' wanted you to watch this! \n' + songLookup(song))
+	else:
+	 	song = msg_body
+
+	 	client.messages.create(
+		to = request.values.get('From'),
+		from_= '+16788417569',
+		body = songLookup(song))
 
 	return " "
 
