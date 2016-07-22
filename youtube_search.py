@@ -20,14 +20,14 @@ def test():
 
 		client.messages.create(
 		to = '+' + recepient,
-		from_= '+16788417569',
+		from_= '[ENTER YOUR TWILIO NUMBER]',
 		body = 'Your friend ' + first_num + ' wanted you to watch this! \n' + songLookup(song))
 	else:
 	 	song = msg_body
 
 	 	client.messages.create(
 		to = request.values.get('From'),
-		from_= '+16788417569',
+		from_= '[ENTER YOUR TWILIO NUMBER]',
 		body = songLookup(song))
 
 	return " "
